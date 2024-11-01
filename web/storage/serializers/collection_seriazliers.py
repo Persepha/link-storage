@@ -11,3 +11,9 @@ class CollectionOutputSerializer(serializers.Serializer):
     updated_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M")
     links = LinkOutputSerializer(many=True, read_only=True)
     user = UserOutputSerializer(read_only=True)
+
+
+class CollectionInputSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=255, required=False)
+    short_description = serializers.CharField(required=False)
+    links_ids = serializers.CharField(required=False)

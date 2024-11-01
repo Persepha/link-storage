@@ -41,7 +41,7 @@ class LinkCreateApi(APIView):
 
         user = self.request.user
 
-        created_task = link_create(**serializer.validated_data, user=user)
+        created_link = link_create(**serializer.validated_data, user=user)
 
         return Response(status=status.HTTP_201_CREATED)
 
@@ -71,7 +71,7 @@ class LinkUpdateApi(APIView):
 
         self.check_object_permissions(request, link)
 
-        updated_task, _ = link_update(link=link, data=serializer.validated_data)
+        updated_link, _ = link_update(link=link, data=serializer.validated_data)
 
         return Response(status=status.HTTP_200_OK)
 
