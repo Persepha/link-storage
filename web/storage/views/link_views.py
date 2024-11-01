@@ -8,13 +8,13 @@ from rest_framework.views import APIView
 from storage.models.link import Link
 from storage.permissions import IsOwner
 from storage.selectors import link_list
-from storage.serializers import (
+from storage.serializers.link_serializers import (
     FilterSerializer,
     LinkInputSerializer,
     LinkOutputSerializer,
     LinkUpdateInputSerializer,
 )
-from storage.services import link_create, link_delete, link_update
+from storage.services.link_services import link_create, link_delete, link_update
 
 
 class LinkListApi(APIView):

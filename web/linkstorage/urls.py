@@ -19,7 +19,8 @@ urlpatterns = [
     ),
     path("api/v1/registration/", include("dj_rest_auth.registration.urls")),
     # link storage url
-    path("links/", include("storage.urls")),
+    path("links/", include("storage.urls.link_urls")),
+    path("collections/", include("storage.urls.collection_urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # Optional UI:
     path(

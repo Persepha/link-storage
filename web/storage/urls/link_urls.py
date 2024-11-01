@@ -1,6 +1,6 @@
 from django.urls import path
 
-from storage.views import (
+from storage.views.link_views import (
     LinkCreateApi,
     LinkDeleteApi,
     LinkDetailApi,
