@@ -10,8 +10,11 @@ class LinkOutputSerializer(serializers.Serializer):
     image = serializers.URLField()
     created_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M")
     updated_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M")
-    user_username = serializers.CharField(source='user.username',
-                                           read_only=True)
+    user_username = serializers.CharField(source="user.username", read_only=True)
+
+
+class LinkInputSerializer(serializers.Serializer):
+    url = serializers.URLField()
 
 
 class FilterSerializer(serializers.Serializer):

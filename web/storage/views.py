@@ -1,9 +1,19 @@
-from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import get_object_or_404
+from drf_spectacular.utils import extend_schema
+from rest_framework import status
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from storage.models.link import Link
+from storage.permissions import IsOwner
 from storage.selectors import link_list
-from storage.serializers import FilterSerializer, LinkOutputSerializer
+from storage.serializers import (
+    FilterSerializer,
+    LinkInputSerializer,
+    LinkOutputSerializer,
+)
+from storage.services import link_create, link_delete
 
 
 class LinkListApi(APIView):
@@ -18,3 +28,31 @@ class LinkListApi(APIView):
         data = LinkOutputSerializer(tasks, many=True).data
 
         return Response(data)
+
+
+@extend_schema(request=LinkInputSerializer)
+class LinkCreateApi(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        serializer = LinkInputSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        user = self.request.user
+
+        created_task = link_create(**serializer.validated_data, user=user)
+
+        return Response(status=status.HTTP_201_CREATED)
+
+
+class LinkDeleteApi(APIView):
+    permission_classes = (IsOwner | IsAdminUser,)
+
+    def delete(self, request, id):
+        link = get_object_or_404(Link, id=id)
+
+        self.check_object_permissions(request, link)
+
+        link_delete(link=link)
+
+        return Response(status=status.HTTP_204_NO_CONTENT)

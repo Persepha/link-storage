@@ -10,12 +10,15 @@ from drf_spectacular.views import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    #dj-rest-auth
+    # dj-rest-auth
     path("api/v1/auth/", include("dj_rest_auth.urls")),
-    path('api/v1/auth/password/reset/confirm/<uidb64>/<token>/',
-         PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path(
+        "api/v1/auth/password/reset/confirm/<uidb64>/<token>/",
+        PasswordResetConfirmView.as_view(),
+        name="password_reset_confirm",
+    ),
     path("api/v1/registration/", include("dj_rest_auth.registration.urls")),
-    #link storage url
+    # link storage url
     path("links/", include("storage.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # Optional UI:
