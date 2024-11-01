@@ -11,9 +11,9 @@ from storage.selectors import link_list
 from storage.serializers import (
     FilterSerializer,
     LinkInputSerializer,
-    LinkOutputSerializer,
+    LinkOutputSerializer, LinkUpdateInputSerializer,
 )
-from storage.services import link_create, link_delete
+from storage.services import link_create, link_delete, link_update
 
 
 class LinkListApi(APIView):
@@ -56,3 +56,20 @@ class LinkDeleteApi(APIView):
         link_delete(link=link)
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@extend_schema(request=LinkUpdateInputSerializer)
+class LinkUpdateApi(APIView):
+    permission_classes = (IsOwner | IsAdminUser,)
+
+    def post(self, request, id):
+        serializer = LinkUpdateInputSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        link = get_object_or_404(Link, id=id)
+
+        self.check_object_permissions(request, link)
+
+        updated_task, _ = link_update(link=link, data=serializer.validated_data)
+
+        return Response(status=status.HTTP_200_OK)

@@ -1,8 +1,11 @@
+from typing import Tuple
+
 from django.conf import settings
 from django.db import transaction
 from metadata_parser import MetadataParser
 
 from common.exceptions import ApplicationError
+from common.services import model_update
 from storage.models.link import Link
 
 
@@ -59,5 +62,31 @@ def link_delete(*, link: Link):
 
 
 @transaction.atomic
-def link_update(*, link: Link, data) -> Link:
-    pass
+def link_update(*, link: Link, data) -> Tuple[Link, bool]:
+    """
+    if url in updated data then getting new data from site via service
+    else update other fields
+    """
+
+    if "url" not in data:
+        non_side_effect_fields = ["title", "short_description", "link_type", "image"]
+
+        link, has_updated = model_update(
+            instance=link,
+            fields=non_side_effect_fields,
+            data=data,
+        )
+
+        return link, has_updated
+
+    new_url = data["url"]
+
+    page_data = get_url_data(url=new_url)
+
+    link, has_updated = model_update(
+        instance=link,
+        fields=["url", "title", "short_description", "link_type", "image"],
+        data={**page_data, "url": new_url},
+    )
+
+    return link, has_updated

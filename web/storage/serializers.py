@@ -17,6 +17,14 @@ class LinkInputSerializer(serializers.Serializer):
     url = serializers.URLField()
 
 
+class LinkUpdateInputSerializer(serializers.Serializer):
+    url = serializers.URLField(required=False)
+    image = serializers.URLField(required=False)
+    title = serializers.CharField(required=False)
+    link_type = serializers.CharField(required=False)
+    short_description = serializers.CharField(required=False)
+
+
 class FilterSerializer(serializers.Serializer):
     id = serializers.IntegerField(required=False)
     title = serializers.CharField(required=False, max_length=255)
