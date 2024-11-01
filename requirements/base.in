@@ -8,3 +8,7 @@ django-filter
 dj-rest-auth
 dj-rest-auth[with_social]
 djangorestframework-simplejwt
+
+metadata_parser
+requests
+beautifulsoup4

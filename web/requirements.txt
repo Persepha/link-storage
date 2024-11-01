@@ -6,6 +6,10 @@
 #
 asgiref==3.8.1
     # via django
+beautifulsoup4==4.12.3
+    # via
+    #   -r requirements/base.in
+    #   metadata-parser
 certifi==2024.8.30
     # via requests
 cffi==1.17.1
@@ -41,6 +45,8 @@ djangorestframework-simplejwt==5.3.1
     # via -r requirements/base.in
 idna==3.10
     # via requests
+metadata-parser==0.12.1
+    # via -r requirements/base.in
 oauthlib==3.2.2
     # via requests-oauthlib
 psycopg2-binary==2.9.10
@@ -55,10 +61,17 @@ python3-openid==3.2.0
     # via django-allauth
 requests==2.32.3
     # via
+    #   -r requirements/base.in
     #   django-allauth
+    #   metadata-parser
     #   requests-oauthlib
+    #   requests-toolbelt
 requests-oauthlib==2.0.0
     # via django-allauth
+requests-toolbelt==1.0.0
+    # via metadata-parser
+soupsieve==2.6
+    # via beautifulsoup4
 sqlparse==0.5.1
     # via django
 tzdata==2024.2

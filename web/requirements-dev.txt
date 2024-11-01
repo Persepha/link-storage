@@ -13,6 +13,10 @@ attrs==24.2.0
     #   flake8-bugbear
     #   jsonschema
     #   referencing
+beautifulsoup4==4.12.3
+    # via
+    #   -r C:\Shizuo\Repos\backend\drf\link-storage\requirements\base.in
+    #   metadata-parser
 black==24.10.0
     # via -r requirements/dev.in
 certifi==2024.8.30
@@ -98,6 +102,8 @@ jsonschema-specifications==2024.10.1
     # via jsonschema
 mccabe==0.7.0
     # via flake8
+metadata-parser==0.12.1
+    # via -r C:\Shizuo\Repos\backend\drf\link-storage\requirements\base.in
 mypy==1.13.0
     # via -r requirements/dev.in
 mypy-extensions==1.0.0
@@ -136,15 +142,22 @@ referencing==0.35.1
     #   jsonschema-specifications
 requests==2.32.3
     # via
+    #   -r C:\Shizuo\Repos\backend\drf\link-storage\requirements\base.in
     #   django-allauth
     #   djangorestframework-stubs
+    #   metadata-parser
     #   requests-oauthlib
+    #   requests-toolbelt
 requests-oauthlib==2.0.0
     # via django-allauth
+requests-toolbelt==1.0.0
+    # via metadata-parser
 rpds-py==0.20.1
     # via
     #   jsonschema
     #   referencing
+soupsieve==2.6
+    # via beautifulsoup4
 sqlparse==0.5.1
     # via
     #   django
