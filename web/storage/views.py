@@ -11,7 +11,8 @@ from storage.selectors import link_list
 from storage.serializers import (
     FilterSerializer,
     LinkInputSerializer,
-    LinkOutputSerializer, LinkUpdateInputSerializer,
+    LinkOutputSerializer,
+    LinkUpdateInputSerializer,
 )
 from storage.services import link_create, link_delete, link_update
 
@@ -73,3 +74,11 @@ class LinkUpdateApi(APIView):
         updated_task, _ = link_update(link=link, data=serializer.validated_data)
 
         return Response(status=status.HTTP_200_OK)
+
+
+class LinkDetailApi(APIView):
+    def get(self, request, id):
+        link = get_object_or_404(Link, id=id)
+        serializer = LinkOutputSerializer(link)
+
+        return Response(serializer.data)
