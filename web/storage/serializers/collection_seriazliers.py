@@ -14,6 +14,10 @@ class CollectionOutputSerializer(serializers.Serializer):
 
 
 class CollectionInputSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=255, required=False)
+    name = serializers.CharField(max_length=255)
     short_description = serializers.CharField(required=False)
     links_ids = serializers.CharField(required=False)
+
+
+class CollectionUpdateInputSerializer(CollectionInputSerializer):
+    name = serializers.CharField(max_length=255, required=False)

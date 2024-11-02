@@ -1,7 +1,9 @@
-from typing import Iterable
+from typing import Iterable, Tuple
 
 from common.exceptions import ApplicationError
+from common.services import model_update
 from django.conf import settings
+from django.db import transaction
 from django.shortcuts import get_object_or_404
 from storage.models.collection import Collection
 from storage.models.link import Link
@@ -46,3 +48,27 @@ def collection_create(
 
 def collection_delete(*, collection: Collection):
     collection.delete()
+
+
+@transaction.atomic
+def collection_update(
+    *,
+    collection: Collection,
+    data,
+) -> Tuple[Collection, bool]:
+    non_side_effect_fields = [
+        "name",
+        "short_description",
+    ]
+
+    collection, has_updated = model_update(
+        instance=collection,
+        fields=non_side_effect_fields,
+        data=data,
+    )
+
+    if "links_ids" in data:
+        link_list: Iterable[Link] = get_links_by_ids(links_ids=data["links_ids"])
+        collection.links.set(link_list)
+
+    return collection, has_updated

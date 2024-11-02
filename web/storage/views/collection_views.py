@@ -10,9 +10,14 @@ from storage.selectors import collection_list
 from storage.serializers.collection_seriazliers import (
     CollectionInputSerializer,
     CollectionOutputSerializer,
+    CollectionUpdateInputSerializer,
 )
 from storage.serializers.link_serializers import FilterSerializer
-from storage.services.collection_services import collection_create, collection_delete
+from storage.services.collection_services import (
+    collection_create,
+    collection_delete,
+    collection_update,
+)
 
 
 class CollectionListApi(APIView):
@@ -69,3 +74,22 @@ class CollectionDeleteApi(APIView):
         collection_delete(collection=collection)
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@extend_schema(request=CollectionUpdateInputSerializer)
+class CollectionUpdateApi(APIView):
+    permission_classes = (IsOwner | IsAdminUser,)
+
+    def post(self, request, id):
+        serializer = CollectionUpdateInputSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        collection = get_object_or_404(Collection, id=id)
+
+        self.check_object_permissions(request, collection)
+
+        updated_image, _ = collection_update(
+            collection=collection, data=serializer.validated_data
+        )
+
+        return Response(status=status.HTTP_200_OK)
