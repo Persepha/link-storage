@@ -1,15 +1,18 @@
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from storage.models.collection import Collection
+from storage.permissions import IsOwner
 from storage.selectors import collection_list
-from storage.serializers.collection_seriazliers import CollectionOutputSerializer, CollectionInputSerializer
+from storage.serializers.collection_seriazliers import (
+    CollectionInputSerializer,
+    CollectionOutputSerializer,
+)
 from storage.serializers.link_serializers import FilterSerializer
-from storage.services.collection_services import collection_create
+from storage.services.collection_services import collection_create, collection_delete
 
 
 class CollectionListApi(APIView):
@@ -37,11 +40,12 @@ class CollectionCreateApi(APIView):
         user = self.request.user
 
         links_ids = None
-        if 'links_ids' in request.data:
-            links_ids = serializer.validated_data.pop('links_ids')
+        if "links_ids" in request.data:
+            links_ids = serializer.validated_data.pop("links_ids")
 
-        created_collection = collection_create(**serializer.validated_data,
-                                     user=user, links_ids=links_ids)
+        created_collection = collection_create(
+            **serializer.validated_data, user=user, links_ids=links_ids
+        )
 
         return Response(status=status.HTTP_201_CREATED)
 
@@ -52,3 +56,16 @@ class CollectionDetailApi(APIView):
         serializer = CollectionOutputSerializer(collection)
 
         return Response(serializer.data)
+
+
+class CollectionDeleteApi(APIView):
+    permission_classes = (IsOwner | IsAdminUser,)
+
+    def delete(self, request, id):
+        collection = get_object_or_404(Collection, id=id)
+
+        self.check_object_permissions(request, collection)
+
+        collection_delete(collection=collection)
+
+        return Response(status=status.HTTP_204_NO_CONTENT)

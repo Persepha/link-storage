@@ -4,7 +4,6 @@ from rest_framework import status
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from storage.models.link import Link
 from storage.permissions import IsOwner
 from storage.selectors import link_list

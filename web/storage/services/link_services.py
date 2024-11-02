@@ -1,11 +1,10 @@
 from typing import Tuple
 
+from common.exceptions import ApplicationError
+from common.services import model_update
 from django.conf import settings
 from django.db import transaction
 from metadata_parser import MetadataParser
-
-from common.exceptions import ApplicationError
-from common.services import model_update
 from storage.models.link import Link
 
 

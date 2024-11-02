@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from storage.models.collection import Collection
 from storage.models.link import Link
 

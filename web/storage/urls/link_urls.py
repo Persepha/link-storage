@@ -1,5 +1,4 @@
 from django.urls import path
-
 from storage.views.link_views import (
     LinkCreateApi,
     LinkDeleteApi,

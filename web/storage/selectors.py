@@ -1,5 +1,4 @@
 from django.db.models import QuerySet
-
 from storage.filters import BaseCollectionFilter, BaseLinkFilter
 from storage.models.collection import Collection
 from storage.models.link import Link

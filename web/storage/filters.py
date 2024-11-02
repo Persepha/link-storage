@@ -1,5 +1,4 @@
 import django_filters
-
 from storage.models.collection import Collection
 from storage.models.link import Link
 
