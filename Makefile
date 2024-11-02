@@ -15,7 +15,7 @@ pip-update:
 	pip-sync web/requirements.txt web/requirements-dev.txt
 
 build-server:
-	docker-compose up -d --build
+	docker-compose up --build
 
 server:
 	docker-compose up

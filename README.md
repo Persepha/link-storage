@@ -21,13 +21,13 @@ Go to the project directory
 Run the docker containers:
 
 ```bash
-  make server
+  make build-server
 ```
 
 or 
 
 ```bash
-  docker-compose up
+  docker-compose up --build
 ```
 
 
