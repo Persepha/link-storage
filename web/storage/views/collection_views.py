@@ -1,9 +1,11 @@
+from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from storage.models.collection import Collection
 from storage.selectors import collection_list
 from storage.serializers.collection_seriazliers import CollectionOutputSerializer, CollectionInputSerializer
 from storage.serializers.link_serializers import FilterSerializer
@@ -42,3 +44,11 @@ class CollectionCreateApi(APIView):
                                      user=user, links_ids=links_ids)
 
         return Response(status=status.HTTP_201_CREATED)
+
+
+class CollectionDetailApi(APIView):
+    def get(self, request, id):
+        collection = get_object_or_404(Collection, id=id)
+        serializer = CollectionOutputSerializer(collection)
+
+        return Response(serializer.data)

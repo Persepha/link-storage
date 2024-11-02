@@ -5,6 +5,7 @@ from storage.serializers.user_seriazliers import UserOutputSerializer
 
 
 class CollectionOutputSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
     name = serializers.CharField()
     short_description = serializers.CharField()
     created_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M")
