@@ -75,6 +75,12 @@ djangorestframework-stubs==3.15.1
     # via -r requirements/dev.in
 drf-spectacular==0.27.2
     # via -r requirements/dev.in
+factory-boy==3.3.1
+    # via -r C:\Shizuo\Repos\backend\drf\link-storage\requirements\base.in
+faker==30.8.2
+    # via
+    #   -r C:\Shizuo\Repos\backend\drf\link-storage\requirements\base.in
+    #   factory-boy
 flake8==7.1.1
     # via
     #   -r requirements/dev.in
@@ -132,6 +138,8 @@ pyjwt[crypto]==2.9.0
     # via
     #   django-allauth
     #   djangorestframework-simplejwt
+python-dateutil==2.9.0.post0
+    # via faker
 python3-openid==3.2.0
     # via django-allauth
 pyyaml==6.0.2
@@ -156,6 +164,8 @@ rpds-py==0.20.1
     # via
     #   jsonschema
     #   referencing
+six==1.16.0
+    # via python-dateutil
 soupsieve==2.6
     # via beautifulsoup4
 sqlparse==0.5.1
@@ -173,6 +183,7 @@ typing-extensions==4.12.2
     #   django-stubs
     #   django-stubs-ext
     #   djangorestframework-stubs
+    #   faker
     #   mypy
 tzdata==2024.2
     # via django

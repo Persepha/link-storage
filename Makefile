@@ -37,3 +37,6 @@ test-coverage:
 
 coverage-html:
 	docker-compose exec web /opt/venv/bin/coverage
+
+seed-data:
+	docker-compose exec web /opt/venv/bin/python manage.py  seed_data 10 300

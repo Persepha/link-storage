@@ -29,7 +29,7 @@ class Link(BaseModel):
     )
 
     class Meta:
-        unique_together = ('url', 'user')  # Ensure unique link per user
+        unique_together = ("url", "user")  # Ensure unique link per user
 
     def __str__(self):
         return f"{self.id} - {self.title}"

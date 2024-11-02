@@ -7,18 +7,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('storage', '0004_rename_tags_collection_links'),
+        ("storage", "0004_rename_tags_collection_links"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='link',
-            name='url',
+            model_name="link",
+            name="url",
             field=models.URLField(),
         ),
         migrations.AlterUniqueTogether(
-            name='link',
-            unique_together={('url', 'user')},
+            name="link",
+            unique_together={("url", "user")},
         ),
     ]

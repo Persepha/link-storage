@@ -43,6 +43,12 @@ djangorestframework==3.15.0
     #   djangorestframework-simplejwt
 djangorestframework-simplejwt==5.3.1
     # via -r requirements/base.in
+factory-boy==3.3.1
+    # via -r requirements/base.in
+faker==30.8.2
+    # via
+    #   -r requirements/base.in
+    #   factory-boy
 idna==3.10
     # via requests
 metadata-parser==0.12.1
@@ -57,6 +63,8 @@ pyjwt[crypto]==2.9.0
     # via
     #   django-allauth
     #   djangorestframework-simplejwt
+python-dateutil==2.9.0.post0
+    # via faker
 python3-openid==3.2.0
     # via django-allauth
 requests==2.32.3
@@ -70,10 +78,14 @@ requests-oauthlib==2.0.0
     # via django-allauth
 requests-toolbelt==1.0.0
     # via metadata-parser
+six==1.16.0
+    # via python-dateutil
 soupsieve==2.6
     # via beautifulsoup4
 sqlparse==0.5.1
     # via django
+typing-extensions==4.12.2
+    # via faker
 tzdata==2024.2
     # via django
 urllib3==2.2.3

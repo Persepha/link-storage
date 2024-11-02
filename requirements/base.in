@@ -12,3 +12,6 @@ djangorestframework-simplejwt
 metadata_parser
 requests
 beautifulsoup4
+
+Faker
+factory-boy
