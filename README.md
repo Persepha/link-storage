@@ -60,7 +60,7 @@ pass
 For generate fake data for database use command 
 
 ```bash
-make seed data
+make seed-data
 ```
 
 or use command 
